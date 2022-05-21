@@ -12,7 +12,7 @@
 
 ![Снимок экрана 2022-05-21 в 08 27 59](https://user-images.githubusercontent.com/98701086/169637006-13ddfa55-30bf-490f-a47b-b4f916ba22e6.png)
 
-3. Но для опыта надо поднять стенд prometheus + grafana. Для это создам де виртуальные машины по приложенному Vagrantfile
+3. Но для опыта надо поднять стенд prometheus + grafana. Для это создам две виртуальные машины по приложенному Vagrantfile
 4. На машине `monserv` установлю из репозитория epel готовые пакеты `golang-github-prometheus golang-github-prometheus-node-exporter`
 
 ```
