@@ -5,7 +5,7 @@ MACHINES = {
   :monserv => {
         :box_name => "generic/rocky8",
         :ip_addr => '192.168.56.150'
-  }
+  },
    :monclient=> {
         :box_name => "generic/rocky8",
         :ip_addr => '192.168.56.151'
