@@ -54,12 +54,54 @@ Installed:
 
 ```
 
-6. Для тестового стенда firewalld можно не настраивать а просто остановить. После проверяю достпность веб интерфейса сервера prometheus и node
+6. Для тестового стенда firewalld можно не настраивать а просто остановить. После проверяю достпность веб интерфейса сервера prometheus и node-exporter
 
 ![Снимок экрана 2022-05-21 в 08 43 53](https://user-images.githubusercontent.com/98701086/169637583-6a69800f-5e11-4f5d-ba4b-a919ea57144a.png)
 
 ![Снимок экрана 2022-05-21 в 08 42 27](https://user-images.githubusercontent.com/98701086/169637592-4f202eb8-4351-4dfe-8ea9-c944bd25a35c.png)
 
+7. Prometheus работает, node-exporter работает
+8. Теперь на машине monclient установлю из репозитория node-exporter и запущу его 
+
+```
+[root@monclient ~]# dnf install golang-github-prometheus-node-exporter
+...
+Installed:
+  golang-github-prometheus-node-exporter-1.3.1-4.el8.x86_64
+
+Complete!
+[root@monclient ~]# systemctl start prometheus-node-exporter
+[root@monclient ~]# systemctl status prometheus-node-exporter
+● prometheus-node-exporter.service - Prometheus exporter for machine metrics
+   Loaded: loaded (/usr/lib/systemd/system/prometheus-node-exporter.service; di>
+   Active: active (running) since Fri 2022-05-20 19:32:29 UTC; 6s ago
+     Docs: https://github.com/prometheus/node_exporter
+ Main PID: 26247 (prometheus-node)
+    Tasks: 5 (limit: 4951)
+   Memory: 8.0M
+   CGroup: /system.slice/prometheus-node-exporter.service
+           └─26247 /usr/bin/prometheus-node-exporter
+...
+[root@monclient ~]# systemctl stop firewalld.service
+```
+
+9. В конфиг prometheus добавлю параметры для monclient
+```
+[root@monserv ~]# vim /etc/prometheus/prometheus.yml
+...
+  - job_name: monclient
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['192.168.56.151:9100']
+...
+```
+10. перезапущу prometheus и проверю, что все target на месте
+
+```
+[root@monserv ~]# systemctl restart prometheus.service
+```
+
+![Снимок экрана 2022-05-21 в 08 51 45](https://user-images.githubusercontent.com/98701086/169637802-09b3db71-37d7-4a3b-979a-35be6a9704e5.png)
 
 
 
