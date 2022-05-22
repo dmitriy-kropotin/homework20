@@ -51,6 +51,19 @@ Installed:
    Memory: 198.0M
    CGroup: /system.slice/prometheus.service
            └─26704 /usr/bin/prometheus
+...
+[root@monserv ~]# systemctl start prometheus.service
+[root@monserv ~]# systemctl status prometheus.service
+● prometheus.service - Monitoring system and time series database
+   Loaded: loaded (/usr/lib/systemd/system/prometheus.service; disabled; vendor preset: disabled)
+   Active: active (running) since Fri 2022-05-20 19:38:44 UTC; 1 day 12h ago
+     Docs: https://prometheus.io/docs/introduction/overview/
+           man:prometheus(1)
+ Main PID: 26704 (prometheus)
+    Tasks: 8 (limit: 4951)
+   Memory: 271.0M
+   CGroup: /system.slice/prometheus.service
+           └─26704 /usr/bin/prometheus
 
 ```
 
